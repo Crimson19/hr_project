@@ -30,11 +30,11 @@ public class VisitorController {
 
         System.out.println("增加之前："+visitor);
         boolean addFlag = visitorService.addVisitor(visitor);
-        System.out.println("增加之后"+visitor);
+        System.out.println("增加之后："+visitor);
         if (addFlag){
             model.addAttribute("info","注册成功");
             session.setAttribute("visitor",visitor);
-            return "success";
+            return "visitor/success";
 
         }
         model.addAttribute("info","注册失败");
@@ -77,11 +77,11 @@ public class VisitorController {
         session.setAttribute("visitor",visitor);
         model.addAttribute("info","登录成功");
 
-        return "success";
+        return "visitor/success";
     }
     @RequestMapping("/visitor.info")
     public   String   visitorInfo(){
-        return  "success";
+        return "visitor/success";
     }
 
 }

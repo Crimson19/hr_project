@@ -1,6 +1,8 @@
 package com.iotek.controller;
 
+import com.iotek.po.Admin;
 import com.iotek.po.Visitor;
+import com.iotek.service.AdminService;
 import com.iotek.service.VisitorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,6 +17,9 @@ import javax.servlet.http.HttpSession;
 public class IndexController {
     @Autowired
     private VisitorService visitorService;
+
+    @Autowired
+    private AdminService adminService;
 
     @RequestMapping(value ="")
     public   String   indexPage(){
@@ -38,7 +43,6 @@ public class IndexController {
         for (Cookie cookie : cookies) {
             if ("visitorName".equals(cookie.getName())){
                 visitorName=cookie.getValue();
-
             }
             if ("visitorPassword".equals(cookie.getName())){
                 visitorPassword=cookie.getValue();
@@ -58,14 +62,40 @@ public class IndexController {
         session.setAttribute("visitor",visitor);
         model.addAttribute("info","登录成功");
 
-        return "success";
-
+        return "visitor/success";
 
     }
 
     @RequestMapping(value = "/adminIndex.do")
-    public   String   adminIndex(){
+    public   String   adminIndex(HttpServletRequest request, Admin admin, Model model, HttpSession session){
+        Cookie[] cookies = request.getCookies();
 
-     return  null;
+        if (cookies == null) {
+            return "redirect:/admin/login.view";
+        }
+        String adminName=null;
+        String adminPassword=null;
+        for (Cookie cookie : cookies) {
+            if ("adminName".equals(cookie.getName())){
+                adminName=cookie.getValue();
+            }
+            if ("adminPassword".equals(cookie.getName())){
+                adminPassword=cookie.getValue();
+            }
+
+        }
+        admin.setAdminName(adminName);
+        admin.setAdminPassword(adminPassword);
+        System.out.println("--------->"+admin);
+        admin = adminService.queryAdminByName(admin);
+        if (admin == null) {
+            model.addAttribute("info","登录失败");
+            return "redirect:/admin/login.view";
+        }
+
+        session.setAttribute("admin",admin);
+        model.addAttribute("info","登录成功");
+
+        return "admin/success";
     }
 }

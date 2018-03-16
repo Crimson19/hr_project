@@ -4,12 +4,36 @@
     <title>登录页面</title>
 </head>
 <body>
-<form action="/visitor/login.do">
-    用户名<input type="text" name="visitorName" required><br/>
-    密码<input type="password" name="visitorPassword" required><br/>
-    是否记住密码<input type="checkbox" value="on" name="isremember">
-    <input type="submit" value="登录">
-
-</form>
+<div class="container">
+    <div class="row">
+        <div class="col-md-8">
+            <form action="/visitor/login.do" class="form-horizontal">
+                <div class="form-group">
+                    <label class="control-label col-sm-2">用户名：</label>
+                    <div class="col-sm-4">
+                        <input class="form-control" type="text" name="visitorName" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2">密码：</label>
+                    <div class="col-sm-4">
+                        <input class="form-control" type="password" name="visitorPassword" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-4 col-sm-offset-2">
+                        <input type="checkbox" value="on" name="isremember">
+                        <label class="control-label">记住密码</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2">
+                        <input class="btn-primary" type="submit" value="确定">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 </body>
 </html>
