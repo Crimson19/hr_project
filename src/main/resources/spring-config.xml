@@ -14,8 +14,7 @@
           http://www.springframework.org/schema/aop
           http://www.springframework.org/schema/aop/spring-aop.xsd
           http://www.springframework.org/schema/mvc
-          http://www.springframework.org/schema/mvc/spring-mvc.xsd
-http://www.springframework.org/schema/mvc ">
+          http://www.springframework.org/schema/mvc/spring-mvc.xsd">
     <!--开启mvc的注解扫描-->
     <mvc:annotation-driven/>
     <!--开启注解的扫描-->

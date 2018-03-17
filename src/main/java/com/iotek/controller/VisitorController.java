@@ -28,9 +28,9 @@ public class VisitorController {
     @RequestMapping(value = "/reg.do")
     public   String   visitorRegister(@ModelAttribute Visitor visitor, HttpSession session, Model model){
 
-        System.out.println("增加之前："+visitor);
+//        System.out.println("增加之前："+visitor);
         boolean addFlag = visitorService.addVisitor(visitor);
-        System.out.println("增加之后："+visitor);
+//        System.out.println("增加之后："+visitor);
         if (addFlag){
             model.addAttribute("info","注册成功");
             session.setAttribute("visitor",visitor);
@@ -43,8 +43,6 @@ public class VisitorController {
     }
     @RequestMapping(value = "/login.view")
     public   String  loginPage(){
-
-
         return "visitor/login";
     }
 
@@ -77,7 +75,7 @@ public class VisitorController {
         session.setAttribute("visitor",visitor);
         model.addAttribute("info","登录成功");
 
-        return "visitor/success";
+        return "visitor/index";
     }
     @RequestMapping("/visitor.info")
     public   String   visitorInfo(){

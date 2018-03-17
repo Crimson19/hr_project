@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.iotek.dao.AdminDao">
+    <resultMap id="adminMap" type="Admin" >
+        <id column="id" property="id"></id>
+        <result column="ADMIN_NAME" property="adminName"></result>
+        <result column="ADMIN_PASSWORD" property="adminPassword"></result>
+        <result column="ADMIN_LEVEL" property="adminLevel"></result>
+    </resultMap>
+    <sql id="createId">
+        SELECT HR_SEQ.nextval FROM dual
+    </sql>
+    <sql id="checkid">
+        <where>
+            <choose>
+                <when test="id!=null">
+                    AND  id=#{id}
+                </when>
+                <otherwise>
+                    AND 1=2
+                </otherwise>
+            </choose>
+        </where>
+    </sql>
+    <insert id="addAdmin" parameterType="Admin">
+        <selectKey resultType="java.lang.Integer" order="BEFORE" keyProperty="id">
+            <include refid="createId"></include>
+        </selectKey>
+        INSERT INTO ADMIN
+
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id!=null">
+                ID,
+            </if>
+            <if test="adminName!=null">
+                ADMIN_NAME,
+            </if>
+            <if test="adminPassword!=null">
+                ADMIN_PASSWORD,
+            </if>
+            <if test="adminLevel!=null">
+                ADMIN_LEVEL,
+            </if>
+        </trim>
+        <trim prefix=" VALUES (" suffix=")" suffixOverrides=",">
+            <if test="id!=null">
+                #{id},
+            </if>
+            <if test="adminName!=null">
+                #{adminName},
+            </if>
+            <if test="adminPassword!=null">
+                #{adminPassword},
+            </if>
+
+            <if test="adminLevel!=null">
+                #{adminLevel},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateAdmin" parameterType="Admin">
+        UPDATE CRIMSON.ADMIN
+        <set>
+            <if test="adminName!=null"> ADMIN_NAME=#{adminName},</if>
+            <if test="adminPassword!=null"> ADMIN_PASSWORD=#{adminPassword},</if>
+            <if test="adminLevel!=null"> ADMIN_LEVEL=#{adminLevel},</if>
+        </set>
+        <where>
+            <choose>
+                <when test="id!=null">
+                    AND  id=#{id}
+                </when>
+                <otherwise>
+                    AND 1=2
+                </otherwise>
+            </choose>
+        </where>
+    </update>
+
+    <sql id="queryAdmin">
+        SELECT  *  FROM ADMIN
+    </sql>
+    <select id="findAdminByName" parameterType="Admin" resultMap="adminMap">
+        <include refid="queryAdmin"></include>
+        <where>
+            <choose>
+                <when test="adminName!=null and adminPassword!=null">
+                    AND ADMIN_NAME=#{adminName} AND
+                    ADMIN_PASSWORD=#{adminPassword}
+                </when>
+                <otherwise>
+                    AND  1=2
+                </otherwise>
+            </choose>
+        </where>
+    </select>
+    <select id="queryAllAdmin" resultMap="adminMap">
+        <include refid="queryAdmin"></include>
+    </select>
+
+    <select id="findAdminByid" parameterType="int" resultMap="adminMap">
+        <include refid="queryAdmin"></include>
+        where  id=#{param1}
+    </select>
+    <select id="findLikeName" parameterType="String" resultMap="adminMap">
+        SELECT  * from  ADMIN WHERE admin_name  LIKE '%${value}%'
+    </select>
+
+    <select id="getCountAdmin" resultType="int">
+        SELECT  count(*) from  Admin
+    </select>
+    <select id="findAdminList" parameterType="list"  resultMap="adminMap">
+        <include refid="queryAdmin"></include>
+        <where>
+            <choose >
+                <when test="list!=null  and  list.size>0">
+                    <foreach collection="list" open=" id in (" item="admin" close=")" separator=",">
+                        #{admin.id}
+                    </foreach>
+                </when>
+                <otherwise>
+                    AND 1=2
+                </otherwise>
+            </choose>
+        </where>
+    </select>
+</mapper>

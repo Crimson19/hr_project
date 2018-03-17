@@ -61,7 +61,7 @@
                 VISITOR_PHONE,
             </if>
 
-            <if test="visitorPhone!=null">
+            <if test="visitorPhoto!=null">
                 VISITOR_PHOTO,
             </if>
 
@@ -136,8 +136,6 @@
                 </otherwise>
             </choose>
         </where>
-
-
     </update>
 
     <sql id="queryVisitor">

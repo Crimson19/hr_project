@@ -4,6 +4,6 @@
     <title>成功</title>
 </head>
 <body>
-<h1>${info}欢迎:${visitor.visitorName}</h1>
+<h1>${info}欢迎:${admin.adminName}</h1>
 </body>
 </html>

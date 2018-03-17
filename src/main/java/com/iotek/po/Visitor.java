@@ -12,8 +12,8 @@ public class Visitor implements Serializable {
     private String visitorEmail;
     private String visitorPhone;
     private String visitorPhoto;
-    private Timestamp customerCreateTime;
-    private Timestamp customerModifiedTime;
+    private Timestamp visitorCreateTime;
+    private Timestamp visitorModifiedTime;
 
     public Visitor(){
     }
@@ -83,19 +83,19 @@ public class Visitor implements Serializable {
     }
 
     public Timestamp getCustomerCreateTime() {
-        return customerCreateTime;
+        return visitorCreateTime;
     }
 
-    public void setCustomerCreateTime(Timestamp customerCreateTime) {
-        this.customerCreateTime = customerCreateTime;
+    public void setVisitorCreateTime(Timestamp visitorCreateTime) {
+        this.visitorCreateTime = visitorCreateTime;
     }
 
-    public Timestamp getCustomerModifiedTime() {
-        return customerModifiedTime;
+    public Timestamp getVisitorModifiedTime() {
+        return visitorModifiedTime;
     }
 
-    public void setCustomerModifiedTime(Timestamp customerModifiedTime) {
-        this.customerModifiedTime = customerModifiedTime;
+    public void setVisitorModifiedTime(Timestamp visitorModifiedTime) {
+        this.visitorModifiedTime = visitorModifiedTime;
     }
 
     @Override
@@ -109,8 +109,8 @@ public class Visitor implements Serializable {
                 ", visitorEmail='" + visitorEmail + '\'' +
                 ", visitorPhone='" + visitorPhone + '\'' +
                 ", visitorPhoto='" + visitorPhoto + '\'' +
-                ", customerCreateTime=" + customerCreateTime +
-                ", customerModifiedTime=" + customerModifiedTime +
+                ", visitorCreateTime=" + visitorCreateTime +
+                ", visitorModifiedTime=" + visitorModifiedTime +
                 '}';
     }
 }
