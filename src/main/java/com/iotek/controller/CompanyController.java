@@ -2,7 +2,13 @@ package com.iotek.controller;
 
 
 import com.iotek.po.Dept;
+import com.iotek.po.Job;
+import com.iotek.po.Recruit;
 import com.iotek.service.DeptService;
+import com.iotek.service.JobService;
+import com.iotek.service.RecruitService;
+import com.iotek.service.impl.JobServiceImpl;
+import com.iotek.service.impl.RecruitServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,6 +27,10 @@ public class CompanyController {
 
     @Autowired
     private DeptService deptService;
+
+    @Autowired
+    private JobService jobService;
+
 
     @RequestMapping(value = "/manager.view")
     public   String   indexPage(){
@@ -69,4 +79,28 @@ public class CompanyController {
         return  "company/index";
 
     }
+
+    @RequestMapping(value = "/addJob.view")
+    public   String   addJobPage(){
+        return "company/addJob";
+    }
+
+
+    @RequestMapping(value = "/addJob.do")
+    public   String   jobAdditon(@ModelAttribute Job job, HttpSession session, Model model){
+
+//        System.out.println("增加之前："+job);
+        boolean addFlag = jobService.addJob(job);
+//        System.out.println("增加之后："+job);
+        if (addFlag){
+            model.addAttribute("info","添加成功");
+            session.setAttribute("job",job);
+            return "admin/success";
+
+        }
+        model.addAttribute("info","添加失败");
+        return  "company/index";
+
+    }
+
 }

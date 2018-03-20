@@ -14,6 +14,7 @@
         <result column="VISITOR_PHOTO" property="visitorPhoto"></result>
         <result column="VISITOR_CREATE_TIME" property="visitorCreateTime"></result>
         <result column="VISITOR_MODIFIED_TIME" property="visitorModifiedTime"></result>
+        <result column="IS_NORMAL" property="isNormal"></result>
     </resultMap>
     <sql id="createId">
         SELECT HR_SEQ.nextval FROM dual
@@ -72,6 +73,9 @@
             <if test="visitorModifiedTime!=null">
                 VISITOR_MODIFIED_TIME,
             </if>
+            <if test="isNormal!=null">
+                IS_NORMAL,
+            </if>
         </trim>
         <trim prefix=" VALUES (" suffix=")" suffixOverrides=",">
             <if test="id!=null">
@@ -111,6 +115,10 @@
             <if test="visitorModifiedTime!=null">
                 #{visitorModifiedTime},
             </if>
+
+            <if test="isNormal!=null">
+                #{isNormal},
+            </if>
         </trim>
     </insert>
     <update id="updateVisitor" parameterType="Visitor">
@@ -125,6 +133,7 @@
             <if test="visitorPhoto!=null"> VISITOR_PHONE=#{visitorPhoto},</if>
             <if test="visitorCreateTime!=null"> VISITOR_CREATE_TIME=#{visitorCreateTime},</if>
             <if test="visitorModifiedTime!=null"> VISITOR_MODIFIED_TIME=#{visitorModifiedTime},</if>
+            <if test="isNormal!=null"> IS_NORMAL=#{isNormal},</if>
         </set>
         <where>
             <choose>

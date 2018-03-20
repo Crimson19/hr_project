@@ -95,7 +95,7 @@
     <mvc:interceptors>
 
         <mvc:interceptor>
-            <mvc:mapping path="/customer/*"/>
+            <mvc:mapping path="/visitor/*"/>
             <mvc:exclude-mapping path="/**/*login*"></mvc:exclude-mapping>
             <mvc:exclude-mapping path="/**/*reg*"></mvc:exclude-mapping>
             <bean class="com.iotek.fitler.SessionHandlerInterceptor"></bean>

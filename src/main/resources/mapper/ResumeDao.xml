@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.iotek.dao.ResumeDao">
+    <resultMap id="resumeMap" type="Resume" >
+        <id column="id" property="id"></id>
+        <result column="VISITOR_ID" property="visitorId"></result>
+        <result column="SELF_APPRAISAL" property="selfAppraisal"></result>
+        <result column="INTERESTS" property="interests"></result>
+        <collection property="skills"
+                    ofType="Skill"
+                    column="id"
+                    select="com.iotek.dao.SkillDao.findOrderListByVid" fetchType="lazy" ></collection>
+    </resultMap>
+    <sql id="createId">
+        SELECT HR_SEQ.nextval FROM dual
+    </sql>
+    <sql id="checkid">
+        <where>
+            <choose>
+                <when test="id!=null">
+                    AND  id=#{id}
+                </when>
+                <otherwise>
+                    AND 1=2
+                </otherwise>
+            </choose>
+        </where>
+    </sql>
+    <insert id="addResume" parameterType="Resume">
+        <selectKey resultType="java.lang.Integer" order="BEFORE" keyProperty="id">
+            <include refid="createId"></include>
+        </selectKey>
+        INSERT INTO RESUME
+
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id!=null">
+                ID,
+            </if>
+            <if test="visitorId!=null">
+                VISITOR_ID,
+            </if>
+            <if test="selfAppraisal!=null">
+                SELF_APPRAISAL,
+            </if>
+
+            <if test="interests!=null">
+                INTERESTS,
+            </if>
+        </trim>
+        <trim prefix=" VALUES (" suffix=")" suffixOverrides=",">
+            <if test="id!=null">
+                #{id},
+            </if>
+            <if test="visitorId!=null">
+                #{visitorId},
+            </if>
+            <if test="selfAppraisal!=null">
+                #{selfAppraisal},
+            </if>
+
+            <if test="interests!=null">
+                #{interests},
+            </if>
+        </trim>
+    </insert>
+    <delete id="deleteResume" parameterType="Resume">
+        DELETE    FROM  RESUME
+        <include refid="checkid"></include>
+    </delete>
+</mapper>

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.iotek.dao.RecruitDao">
+    <resultMap id="recruitMap" type="Recruit" >
+        <id column="id" property="id"></id>
+        <result column="JOB_ID" property="jobId"></result>
+        <result column="WORK_TYPE" property="workType"></result>
+        <result column="LOCATION" property="location"></result>
+        <result column="RECRUIT_NUMBER" property="recruitNumber"></result>
+        <result column="CREATE_TIME" property="createTime"></result>
+    </resultMap>
+    <sql id="createId">
+        SELECT HR_SEQ.nextval FROM dual
+    </sql>
+    <sql id="checkid">
+        <where>
+            <choose>
+                <when test="id!=null">
+                    AND  id=#{id}
+                </when>
+                <otherwise>
+                    AND 1=2
+                </otherwise>
+            </choose>
+        </where>
+    </sql>
+    <insert id="addRecruit" parameterType="Recruit">
+        <selectKey resultType="java.lang.Integer" order="BEFORE" keyProperty="id">
+            <include refid="createId"></include>
+        </selectKey>
+        INSERT INTO RECRUIT
+
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id!=null">
+                ID,
+            </if>
+            <if test="jobId!=null">
+                JOB_ID,
+            </if>
+            <if test="workType!=null">
+                WORK_TYPE,
+            </if>
+            <if test="location!=null">
+                LOCATION,
+            </if>
+            <if test="recruitNumber!=null">
+                RECRUIT_NUMBER,
+            </if>
+            <if test="createTime!=null">
+                CREATE_TIME,
+            </if>
+        </trim>
+        <trim prefix=" VALUES (" suffix=")" suffixOverrides=",">
+            <if test="id!=null">
+                #{id},
+            </if>
+            <if test="jobId!=null">
+                #{jobId},
+            </if>
+            <if test="workType!=null">
+                #{workType},
+            </if>
+            <if test="location!=null">
+                #{location},
+            </if>
+            <if test="recruitNumber!=null">
+                #{recruitNumber},
+            </if>
+            <if test="createTime!=null">
+                #{createTime},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateRecruit" parameterType="Recruit">
+        UPDATE CRIMSON.RECRUIT
+        <set>
+            <if test="jobId!=null"> JOB_ID=#{jobId},</if>
+            <if test="workType!=null"> WORK_TYPE=#{workType},</if>
+            <if test="location!=null"> LOCATION=#{location},</if>
+            <if test="recruitNumber!=null"> RECRUIT_NUMBER=#{recruitNumber},</if>
+            <if test="createTime!=null"> CREATE_TIME=#{createTime},</if>
+        </set>
+        <where>
+            <choose>
+                <when test="id!=null">
+                    AND  id=#{id}
+                </when>
+                <otherwise>
+                    AND 1=2
+                </otherwise>
+            </choose>
+        </where>
+    </update>
+
+    <sql id="queryRecruit">
+        SELECT  *  FROM RECRUIT
+    </sql>
+
+    <select id="queryAllRecruit" resultMap="recruitMap">
+        <include refid="queryRecruit"></include>
+    </select>
+</mapper>

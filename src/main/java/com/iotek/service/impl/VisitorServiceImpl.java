@@ -32,7 +32,10 @@ public class VisitorServiceImpl implements VisitorService{
 
     @Override
     public boolean updateVisitor(Visitor visitor) {
-        return false;
+        if (visitor == null) {
+            return  false;
+        }
+        return    visitorDao.updateVisitor(visitor);
     }
 
     @Override

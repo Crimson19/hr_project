@@ -14,6 +14,7 @@ public class Visitor implements Serializable {
     private String visitorPhoto;
     private Timestamp visitorCreateTime;
     private Timestamp visitorModifiedTime;
+    private Integer isNormal;
 
     public Visitor(){
     }
@@ -98,6 +99,14 @@ public class Visitor implements Serializable {
         this.visitorModifiedTime = visitorModifiedTime;
     }
 
+    public Integer getIsNormal() {
+        return isNormal;
+    }
+
+    public void setIsNormal(Integer isNormal) {
+        this.isNormal = isNormal;
+    }
+
     @Override
     public String toString() {
         return "Visitor{" +
@@ -111,6 +120,7 @@ public class Visitor implements Serializable {
                 ", visitorPhoto='" + visitorPhoto + '\'' +
                 ", visitorCreateTime=" + visitorCreateTime +
                 ", visitorModifiedTime=" + visitorModifiedTime +
+                ", isNormal=" + isNormal +
                 '}';
     }
 }
