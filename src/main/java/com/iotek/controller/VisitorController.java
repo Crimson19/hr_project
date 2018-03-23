@@ -1,6 +1,8 @@
 package com.iotek.controller;
 
+import com.iotek.po.Empolyee;
 import com.iotek.po.Visitor;
+import com.iotek.service.EmpolyeeService;
 import com.iotek.service.VisitorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,6 +22,10 @@ public class VisitorController {
 
     @Autowired
     private VisitorService visitorService;
+    @Autowired
+    private EmpolyeeService empolyeeService;
+
+
     @RequestMapping(value = "/reg.view")
     public   String   regPage(){
         return "visitor/register";
@@ -48,38 +54,75 @@ public class VisitorController {
 
 
     @RequestMapping(value = "/login.do")
-    public   String  login(@ModelAttribute  Visitor visitor,
-                           HttpSession  session, Model model,
-                           @RequestParam(value = "isremember" ,required = false) String isremember,
-                           HttpServletResponse response
-    ){
-        System.out.println("登陆之前"+visitor);
+    public   String  login(@ModelAttribute  Visitor visitor, HttpSession  session, Model model){
+//        System.out.println("登陆之前"+visitor);
         visitor = visitorService.queryVisitorByName(visitor);
         if (visitor == null) {
             model.addAttribute("info","登录失败");
             return "visitor/index";
         }
 //        保存cookie
-        System.out.println(isremember);
-        if ("on".equals(isremember)){
-            Cookie cookieName=new Cookie("visitorName",visitor.getVisitorName());
-            cookieName.setMaxAge(60*60*24*7);
-            cookieName.setPath("/");
-            Cookie cookiePassword=new Cookie("visitorPassword",visitor.getVisitorPassword());
-            cookiePassword.setMaxAge(60*60*24*1);
-            cookiePassword.setPath("/");
-            response.addCookie(cookieName);
-            response.addCookie(cookiePassword);
-        }
+//        System.out.println(isremember);
+//        if ("on".equals(isremember)){
+//            Cookie cookieName=new Cookie("visitorName",visitor.getVisitorName());
+//            cookieName.setMaxAge(60*60*24*7);
+//            cookieName.setPath("/");
+//            Cookie cookiePassword=new Cookie("visitorPassword",visitor.getVisitorPassword());
+//            cookiePassword.setMaxAge(60*60*24*1);
+//            cookiePassword.setPath("/");
+//            response.addCookie(cookieName);
+//            response.addCookie(cookiePassword);
+//        }
 
         session.setAttribute("visitor",visitor);
-        model.addAttribute("info","登录成功");
+        model.addAttribute("visitor",visitor);
 
-        return "visitor/index";
+        return "visitor/success";
     }
+
+    @RequestMapping(value = "/loginAsEmp.do")
+    public   String  loginAsEmp(@ModelAttribute  Visitor visitor, HttpSession  session, Model model){
+//        System.out.println("登陆之前"+visitor);
+        visitor = visitorService.queryVisitorByName(visitor);
+        int visitorId=visitor.getId();
+        Empolyee empolyee = empolyeeService.findEmpolyeeByVId(visitorId);
+        if (empolyee == null) {
+            model.addAttribute("info","您还不是员工");
+            return "visitor/index";
+        }
+//        保存cookie
+//        System.out.println(isremember);
+//        if ("on".equals(isremember)){
+//            Cookie cookieName=new Cookie("visitorName",visitor.getVisitorName());
+//            cookieName.setMaxAge(60*60*24*7);
+//            cookieName.setPath("/");
+//            Cookie cookiePassword=new Cookie("visitorPassword",visitor.getVisitorPassword());
+//            cookiePassword.setMaxAge(60*60*24*1);
+//            cookiePassword.setPath("/");
+//            response.addCookie(cookieName);
+//            response.addCookie(cookiePassword);
+//        }
+
+        session.setAttribute("empolyee",empolyee);
+        model.addAttribute("empolyee",empolyee);
+        session.setAttribute("visitor",visitor);
+        model.addAttribute("visitor",visitor);
+        return "empolyee/success";
+    }
+
     @RequestMapping("/visitor.info")
     public   String   visitorInfo(){
         return "visitor/success";
+    }
+
+    @RequestMapping("/empolyee.info")
+    public   String   empolyeeInfo(){
+        return "empolyee/success";
+    }
+
+    @RequestMapping("/index.view")
+    public   String   visitorIndex(){
+        return "visitor/index";
     }
 
 }

@@ -5,11 +5,12 @@
 <mapper namespace="com.iotek.dao.JobDao">
     <resultMap id="jobMap" type="Job" >
         <id column="id" property="id"></id>
-        <result column="DEPT_ID" property="deptId"></result>
+        <result column="COMPANY_ID" property="companyId"></result>
         <result column="JOB_NAME" property="jobName"></result>
         <result column="SAL" property="sal"></result>
         <result column="JOB_TYPE_ID" property="jobTypeId"></result>
         <result column="JOB_INFO" property="jobInfo"></result>
+        <association property="jobtype" column="{id=JOB_TYPE_ID}" select="com.iotek.dao.JobTypeDao.queryJobType"></association>
     </resultMap>
     <sql id="createId">
         SELECT HR_SEQ.nextval FROM dual
@@ -36,8 +37,8 @@
             <if test="id!=null">
                 ID,
             </if>
-            <if test="deptId!=null">
-                DEPT_ID,
+            <if test="companyId!=null">
+                COMPANY_ID,
             </if>
             <if test="jobName!=null">
                 JOB_NAME,
@@ -56,8 +57,8 @@
             <if test="id!=null">
                 #{id},
             </if>
-            <if test="deptId!=null">
-                #{deptId},
+            <if test="companyId!=null">
+                #{companyId},
             </if>
             <if test="jobName!=null">
                 #{jobName},
@@ -73,4 +74,17 @@
             </if>
         </trim>
     </insert>
+    <select id="queryJob" parameterType="Job" resultMap="jobMap">
+        SELECT * FROM JOB
+        <where>
+            <trim suffix=" " suffixOverrides=",">
+                <if test="id!=null">id=#{id},</if>
+                <if test="companyId!=null">COMPANY_ID=#{companyId},</if>
+                <if test="jobName!=null">JOB_NAME=#{jobName},</if>
+                <if test="jobInfo!=null">JOB_INFO=#{jobInfo},</if>
+                <if test="jobTypeId!=null">JOB_TYPE_ID=#{jobTypeId},</if>
+                <if test="sal!=null">SAL=#{sal},</if>
+            </trim>
+        </where>
+    </select>
 </mapper>

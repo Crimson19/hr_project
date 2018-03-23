@@ -24,9 +24,9 @@ public class RecruitServiceImpl implements RecruitService {
     }
 
     @Override
-    public boolean updateRecruit(Recruit recruit) {
+    public Recruit updateRecruit(Recruit recruit) {
         if (recruit == null) {
-            return  false;
+            return  null;
         }
         return    recruitDao.updateRecruit(recruit);
     }
@@ -34,5 +34,10 @@ public class RecruitServiceImpl implements RecruitService {
     @Override
     public List<Recruit> queryAllRecruit() {
         return null;
+    }
+
+    @Override
+    public boolean deleteRecruit(Recruit recruit) {
+        return recruitDao.deleteRecruit(recruit);
     }
 }

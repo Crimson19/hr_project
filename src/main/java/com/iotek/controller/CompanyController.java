@@ -1,14 +1,10 @@
 package com.iotek.controller;
 
 
-import com.iotek.po.Dept;
-import com.iotek.po.Job;
-import com.iotek.po.Recruit;
+import com.iotek.po.*;
 import com.iotek.service.DeptService;
 import com.iotek.service.JobService;
-import com.iotek.service.RecruitService;
-import com.iotek.service.impl.JobServiceImpl;
-import com.iotek.service.impl.RecruitServiceImpl;
+import com.iotek.service.JobTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 
 @Controller
@@ -31,8 +28,11 @@ public class CompanyController {
     @Autowired
     private JobService jobService;
 
+    @Autowired
+    private JobTypeService jobTypeService;
 
-    @RequestMapping(value = "/manager.view")
+
+    @RequestMapping(value = "/index.view")
     public   String   indexPage(){
         return "company/index";
     }
@@ -44,7 +44,7 @@ public class CompanyController {
 
     @RequestMapping(value = "/addDept.view")
     public   String   addDeptPage(){
-        return "company/addDept";
+        return "company/dept/addDept";
     }
 
 //    @RequestMapping(value = "/addCo.do")
@@ -63,26 +63,35 @@ public class CompanyController {
 //        return  "company/index";
 //
 //    }
+    @RequestMapping(value = "manageDept.view")
+    public String adminManageDept(HttpSession session,Model model){
+        Admin admin = (Admin) session.getAttribute("admin");
+        Integer companyId = admin.getCompanyId();
+        Dept dept = new Dept();
+        dept.setCompanyId(companyId);
+        List<Dept> depts = deptService.queryDept(dept);
+        model.addAttribute("deptList", depts);
+        return "company/dept/manageDept";
+    }
+
     @RequestMapping(value = "/addDept.do")
     public   String   deptAdditon(@ModelAttribute Dept dept, HttpSession session, Model model){
-
+        Admin admin = (Admin) session.getAttribute("admin");
 //        System.out.println("增加之前："+dept);
         boolean addFlag = deptService.addDept(dept);
 //        System.out.println("增加之后："+dept);
-        if (addFlag){
-            model.addAttribute("info","添加成功");
-            session.setAttribute("dept",dept);
-            return "admin/success";
-
+        if (addFlag) {
+            model.addAttribute("dept",dept);
+        }else{
+            model.addAttribute("info","添加失败");
         }
-        model.addAttribute("info","添加失败");
-        return  "company/index";
+        return "company/dept/addDept";
 
     }
 
     @RequestMapping(value = "/addJob.view")
     public   String   addJobPage(){
-        return "company/addJob";
+        return "company/job/addJob";
     }
 
 
@@ -103,4 +112,25 @@ public class CompanyController {
 
     }
 
+    @RequestMapping(value = "/addJobType.view")
+    public   String   addJobTypePage(){
+        return "company/job/addJobType";
+    }
+
+    @RequestMapping(value = "/addJobType.do")
+    public   String   jobTypeAdditon(@ModelAttribute JobType jobType, HttpSession session, Model model){
+
+//        System.out.println("增加之前："+jobType);
+        boolean addFlag = jobTypeService.addJobType(jobType);
+//        System.out.println("增加之后："+jobType);
+        if (addFlag){
+            model.addAttribute("info","添加成功");
+            session.setAttribute("jobType",jobType);
+            return "admin/success";
+
+        }
+        model.addAttribute("info","添加失败");
+        return  "company/index";
+
+    }
 }

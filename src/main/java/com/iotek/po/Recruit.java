@@ -5,13 +5,22 @@ import java.sql.Timestamp;
 
 public class Recruit implements Serializable {
     private Integer id;
-    private Integer jobId;
+    private Integer deptAndJobId;
     private String workType;
     private String location;
     private Integer recruitNumber;
     private Timestamp createTime;
+    private DeptAndJob deptAndJob;
 
     public Recruit() {
+    }
+
+    public DeptAndJob getDeptAndJob() {
+        return deptAndJob;
+    }
+
+    public void setDeptAndJob(DeptAndJob deptAndJob) {
+        this.deptAndJob = deptAndJob;
     }
 
     public Timestamp getCreateTime() {
@@ -30,12 +39,12 @@ public class Recruit implements Serializable {
         this.id = id;
     }
 
-    public Integer getJobId() {
-        return jobId;
+    public Integer getDeptAndJobId() {
+        return deptAndJobId;
     }
 
-    public void setJobId(Integer jobId) {
-        this.jobId = jobId;
+    public void setDeptAndJobId(Integer deptAndJobId) {
+        this.deptAndJobId = deptAndJobId;
     }
 
     public String getLocation() {
@@ -66,11 +75,12 @@ public class Recruit implements Serializable {
     public String toString() {
         return "Recruit{" +
                 "id=" + id +
-                ", jobId=" + jobId +
+                ", deptAndJobId=" + deptAndJobId +
                 ", workType='" + workType + '\'' +
                 ", location='" + location + '\'' +
                 ", recruitNumber=" + recruitNumber +
                 ", createTime=" + createTime +
+                ", deptAndJob=" + deptAndJob +
                 '}';
     }
 }

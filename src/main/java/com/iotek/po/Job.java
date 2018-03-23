@@ -5,21 +5,30 @@ import java.math.BigDecimal;
 
 public class Job implements Serializable{
     private Integer id;
-    private Integer deptId;
+    private Integer companyId;
     private Integer jobTypeId;
     private String jobName;
     private String jobInfo;
     private BigDecimal sal;
+    private JobType jobType;
 
     public Job() {
     }
 
-    public Integer getDeptId() {
-        return deptId;
+    public JobType getJobType() {
+        return jobType;
     }
 
-    public void setDeptId(Integer deptId) {
-        this.deptId = deptId;
+    public void setJobType(JobType jobType) {
+        this.jobType = jobType;
+    }
+
+    public Integer getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(Integer companyId) {
+        this.companyId = companyId;
     }
 
     public Integer getId() {
@@ -66,11 +75,12 @@ public class Job implements Serializable{
     public String toString() {
         return "Job{" +
                 "id=" + id +
-                ", deptId=" + deptId +
+                ", companyId=" + companyId +
                 ", jobTypeId=" + jobTypeId +
                 ", jobName='" + jobName + '\'' +
                 ", jobInfo='" + jobInfo + '\'' +
                 ", sal=" + sal +
+                ", jobType=" + jobType +
                 '}';
     }
 }

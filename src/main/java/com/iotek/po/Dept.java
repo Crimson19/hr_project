@@ -4,10 +4,19 @@ import java.io.Serializable;
 
 public class Dept implements Serializable {
     private Integer id;
+    private Integer companyId;
     private String deptName;
     private String deptInfo;
 
     public Dept() {
+    }
+
+    public Integer getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(Integer companyId) {
+        this.companyId = companyId;
     }
 
     public String getDeptInfo() {
@@ -38,6 +47,7 @@ public class Dept implements Serializable {
     public String toString() {
         return "Dept{" +
                 "id=" + id +
+                ", companyId=" + companyId +
                 ", deptName='" + deptName + '\'' +
                 ", deptInfo='" + deptInfo + '\'' +
                 '}';

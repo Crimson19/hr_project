@@ -40,7 +40,7 @@ public class VisitorServiceImpl implements VisitorService{
 
     @Override
     public List<Visitor> queryAllVisitor() {
-        return null;
+        return visitorDao.queryAllVisitor();
     }
 
     @Override

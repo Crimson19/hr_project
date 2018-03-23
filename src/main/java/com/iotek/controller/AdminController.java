@@ -52,11 +52,11 @@ public class AdminController {
 
         session.setAttribute("admin",admin);
         model.addAttribute("info","登录成功");
-
         return "admin/success";
     }
-    @RequestMapping("/admin.info")
-    public   String   adminInfo(){
+
+    @RequestMapping(value = "adminSuccess.do")
+    public String adminSuccess(){
         return "admin/success";
     }
 }

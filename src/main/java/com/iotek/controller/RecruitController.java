@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
 
@@ -18,25 +19,26 @@ public class RecruitController {
     @Autowired
     private RecruitService recruitService;
 
+    @RequestMapping(value = "/index.view")
+    public   String   indexPage(){
+        return "recruit/index";
+    }
+
     @RequestMapping(value = "/addRecruit.view")
     public   String   addRecruitPage(){
         return "recruit/addRecruit";
     }
 
-    @RequestMapping(value = "/addRecruit.do")
-    public   String   recruitAdditon(@ModelAttribute Recruit recruit, HttpSession session, Model model){
-
-//        System.out.println("增加之前："+recruit);
+    @RequestMapping(value = "addRecruit.do")
+    public String adminAddRecruit(HttpSession session, Model model, @RequestParam(value = "deptAndJobId",required = false) String djId, @ModelAttribute Recruit recruit){
+        int newId = Integer.parseInt(djId);
+        recruit.setDeptAndJobId(newId);
         boolean addFlag = recruitService.addRecruit(recruit);
-//        System.out.println("增加之后："+recruit);
-        if (addFlag){
-            model.addAttribute("info","添加成功");
-            session.setAttribute("recruit",recruit);
-            return "admin/success";
-
+        if(addFlag){
+            model.addAttribute("Recruit",recruit);
+        }else{
+            model.addAttribute("info","添加失败");
         }
-        model.addAttribute("info","添加失败");
-        return  "company/index";
-
+        return "recruit/addRecruit";
     }
 }

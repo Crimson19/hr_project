@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.iotek.dao.JobTypeDao">
+    <resultMap id="jobTypeMap" type="JobType" >
+        <id column="id" property="id"></id>
+        <result column="JOB_TYPE_1" property="jobType1"></result>
+        <result column="JOB_TYPE_2" property="jobType2"></result>
+    </resultMap>
+    <sql id="createId">
+        SELECT HR_SEQ.nextval FROM dual
+    </sql>
+    <sql id="checkid">
+        <where>
+            <choose>
+                <when test="id!=null">
+                    AND  id=#{id}
+                </when>
+                <otherwise>
+                    AND 1=2
+                </otherwise>
+            </choose>
+        </where>
+    </sql>
+    <insert id="addJobType" parameterType="JobType">
+        <selectKey resultType="java.lang.Integer" order="BEFORE" keyProperty="id">
+            <include refid="createId"></include>
+        </selectKey>
+        INSERT INTO JOB_TYPE
+
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id!=null">
+                ID,
+            </if>
+            <if test="jobType1!=null">
+                JOB_TYPE_1,
+            </if>
+            <if test="jobType2!=null">
+                JOB_TYPE_2,
+            </if>
+        </trim>
+        <trim prefix=" VALUES (" suffix=")" suffixOverrides=",">
+            <if test="id!=null">
+                #{id},
+            </if>
+            <if test="jobType1!=null">
+                #{jobType1},
+            </if>
+            <if test="jobType2!=null">
+                #{jobType2},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateJobType" parameterType="JobType">
+        UPDATE JOB_TYPE SET JOB_TYPE_1=#{jobType1} , JOB_TYPE_2=#{jobType2} where id=#{id}
+    </update>
+    <select id="queryJobType" parameterType="JobType" resultMap="jobTypeMap">
+        SELECT * FROM JOB_TYPE
+        <where>
+            <trim suffix=" " suffixOverrides=",">
+                <if test="id!=null">id=#{id},</if>
+                <if test="jobType1!=null">JOB_TYPE_1=#{jobType1},</if>
+                <if test="jobType2!=null">JOB_TYPE_2=#{jobType2},</if>
+            </trim>
+        </where>
+    </select>
+</mapper>

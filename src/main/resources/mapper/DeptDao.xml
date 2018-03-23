@@ -5,6 +5,7 @@
 <mapper namespace="com.iotek.dao.DeptDao">
     <resultMap id="deptMap" type="Dept" >
         <id column="id" property="id"></id>
+        <result column="COMPANY_ID" property="companyId"></result>
         <result column="DEPT_NAME" property="deptName"></result>
         <result column="DEPT_INFO" property="deptInfo"></result>
     </resultMap>
@@ -33,6 +34,9 @@
             <if test="id!=null">
                 ID,
             </if>
+            <if test="companyId!=null">
+                COMPANY_ID,
+            </if>
             <if test="deptName!=null">
                 DEPT_NAME,
             </if>
@@ -44,6 +48,9 @@
             <if test="id!=null">
                 #{id},
             </if>
+            <if test="companyId!=null">
+                #{companyId},
+            </if>
             <if test="deptName!=null">
                 #{deptName},
             </if>
@@ -52,4 +59,21 @@
             </if>
         </trim>
     </insert>
+    <update id="updateDept" parameterType="Dept">
+        UPDATE DEPT SET DEPT.COMPANY_ID=#{companyId},DEPT.DEPT_NAME=#{deptName},DEPT_INFO=#{deptInfo} where id={$id}
+    </update>
+    <select id="queryDept" parameterType="Dept" resultMap="deptMap">
+        SELECT * FROM DEPT
+        <where>
+            <trim suffix=" " suffixOverrides=",">
+                <if test="id!=null">Id = #{id},</if>
+                <if test="companyId!=null">Company_Id = #{companyId},</if>
+                <if test="deptName!=null">dept_Name = #{deptName},</if>
+                <if test="deptInfo!=null">dept_Info = #{deptInfo},</if>
+            </trim>
+        </where>
+    </select>
+    <delete id="deleteDept" parameterType="Dept">
+        DELETE FROM DEPT where ID=#{id}
+    </delete>
 </mapper>

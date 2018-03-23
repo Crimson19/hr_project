@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.iotek.dao.CompanyDao">
+    <resultMap id="companyMap" type="Company">
+        <id column="id" property="id"></id>
+        <result column="COMPANY_NAME" property="companyName"></result>
+        <result column="COMPANY_ADDRESS" property="companyAddress"></result>
+        <result column="COMPANY_INFO" property="companyInfo"></result>
+    </resultMap>
+    <insert id="addCompany" parameterType="Company">
+        <selectKey resultType="java.lang.Integer" order="BEFORE" keyProperty="id">
+            SELECT HR_SEQ.nextval FROM dual
+        </selectKey>
+        insert into COMPANY(ID, COMPANY_NAME, COMPANY_ADDRESS, COMPANY_INFO) VALUES (#{id},#{companyName},#{companyAddress},#{companyInfo})
+    </insert>
+    <update id="updateCompany" parameterType="Company">
+        UPDATE COMPANY SET COMPANY.COMPANY_NAME=#{companyName},COMPANY.COMPANY_ADDRESS=#{companyAddress},COMPANY_INFO=#{companyInfo}
+    </update>
+    <select id="queryCompany" parameterType="Company" resultMap="companyMap">
+        SELECT * FROM COMPANY where ID = #{id}
+    </select>
+    <select id="queryCompanyById" parameterType="int" resultMap="companyMap">
+        SELECT * FROM COMPANY where ID = #{value}
+    </select>
+</mapper>

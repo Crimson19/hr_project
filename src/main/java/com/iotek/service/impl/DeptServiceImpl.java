@@ -6,8 +6,11 @@ import com.iotek.service.DeptService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service(value = "deptService")
 public class DeptServiceImpl implements DeptService{
+
     @Autowired
     private DeptDao deptDao;
 
@@ -20,8 +23,11 @@ public class DeptServiceImpl implements DeptService{
     }
 
     @Override
-    public boolean updateDept(Dept dept) {
-        return false;
+    public Dept updateDept(Dept dept) {
+        if (dept == null) {
+            return null;
+        }
+        return deptDao.updateDept(dept);
     }
 
     @Override
@@ -30,5 +36,15 @@ public class DeptServiceImpl implements DeptService{
             return  false;
         }
         return    deptDao.addDept(dept);
+    }
+
+    @Override
+    public boolean deleteDept(Dept dept) {
+        return deptDao.deleteDept(dept);
+    }
+
+    @Override
+    public List<Dept> queryDept(Dept dept) {
+        return deptDao.queryDept(dept);
     }
 }

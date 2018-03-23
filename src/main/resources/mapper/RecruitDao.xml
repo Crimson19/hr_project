@@ -5,11 +5,12 @@
 <mapper namespace="com.iotek.dao.RecruitDao">
     <resultMap id="recruitMap" type="Recruit" >
         <id column="id" property="id"></id>
-        <result column="JOB_ID" property="jobId"></result>
+        <result column="DEPT_AND_JOB_ID" property="deptAndJobId"></result>
         <result column="WORK_TYPE" property="workType"></result>
         <result column="LOCATION" property="location"></result>
         <result column="RECRUIT_NUMBER" property="recruitNumber"></result>
         <result column="CREATE_TIME" property="createTime"></result>
+        <association property="deptAndJob" column="{id=JOB_AND_DEPT_ID}" select="com.iotek.dao.DeptAndJobDao.queryDeptAndJob"></association>
     </resultMap>
     <sql id="createId">
         SELECT HR_SEQ.nextval FROM dual
@@ -36,8 +37,8 @@
             <if test="id!=null">
                 ID,
             </if>
-            <if test="jobId!=null">
-                JOB_ID,
+            <if test="deptAndJobId!=null">
+                DEPT_AND_JOB_ID,
             </if>
             <if test="workType!=null">
                 WORK_TYPE,
@@ -56,8 +57,8 @@
             <if test="id!=null">
                 #{id},
             </if>
-            <if test="jobId!=null">
-                #{jobId},
+            <if test="deptAndJobId!=null">
+                #{deptAndJobId},
             </if>
             <if test="workType!=null">
                 #{workType},
@@ -76,7 +77,7 @@
     <update id="updateRecruit" parameterType="Recruit">
         UPDATE CRIMSON.RECRUIT
         <set>
-            <if test="jobId!=null"> JOB_ID=#{jobId},</if>
+            <if test="deptAndJobId!=null"> DEPT_AND_JOB_ID=#{deptAndJobId},</if>
             <if test="workType!=null"> WORK_TYPE=#{workType},</if>
             <if test="location!=null"> LOCATION=#{location},</if>
             <if test="recruitNumber!=null"> RECRUIT_NUMBER=#{recruitNumber},</if>
@@ -94,11 +95,20 @@
         </where>
     </update>
 
-    <sql id="queryRecruit">
-        SELECT  *  FROM RECRUIT
-    </sql>
-
-    <select id="queryAllRecruit" resultMap="recruitMap">
-        <include refid="queryRecruit"></include>
+    <select id="queryRecruit" parameterType="Recruit" resultMap="recruitMap">
+        SELECT * from RECRUIT
+        <where>
+            <trim suffix=" " prefixOverrides=",">
+                <if test="id!=null">id=#{id},</if>
+                <if test="DEPT_AND_JOB_ID!=null">DEPT_AND_JOB_ID=#{deptAndJobId},</if>
+                <if test="WORK_TYPE!=null">WORK_TYPE=#{workType},</if>
+                <if test="LOCATION!=null">LOCATION=#{location},</if>
+                <if test="RECRUIT_NUMBER!=null">RECRUIT_NUMBER=#{recruitNumber},</if>
+                <if test="CREATE_TIME!=null">CREATE_TIME=#{createTime},</if>
+            </trim>
+        </where>
     </select>
+    <delete id="deleteRecruit" parameterType="Recruit">
+        DELETE FROM RECRUIT where ID=#{id}
+    </delete>
 </mapper>

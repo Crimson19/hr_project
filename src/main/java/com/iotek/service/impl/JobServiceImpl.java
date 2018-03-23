@@ -6,6 +6,8 @@ import com.iotek.service.JobService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service(value = "jobService")
 public class JobServiceImpl implements JobService {
 
@@ -18,5 +20,15 @@ public class JobServiceImpl implements JobService {
             return  false;
         }
         return   jobDao.addJob(job);
+    }
+
+    @Override
+    public Job updateJob(Job job) {
+        return jobDao.updateJob(job);
+    }
+
+    @Override
+    public List<Job> queryJob(Job job) {
+        return jobDao.queryJob(job);
     }
 }

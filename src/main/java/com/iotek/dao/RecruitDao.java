@@ -7,7 +7,9 @@ import java.util.List;
 public interface RecruitDao {
     boolean addRecruit(Recruit recruit);
 
-    boolean updateRecruit(Recruit recruit);
+    Recruit updateRecruit(Recruit recruit);
 
-    List<Recruit> queryAllRecruit();
+    List<Recruit> queryRecruit(Recruit recruit);
+
+    boolean deleteRecruit(Recruit recruit);
 }
