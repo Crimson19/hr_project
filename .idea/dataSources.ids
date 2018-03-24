@@ -10,8 +10,8 @@
       <schema id="1" name="CRIMSON">
         <object-id>61</object-id>
         <created-timestamp>2018-03-13.15:42:43</created-timestamp>
-        <modified-timestamp>2018-03-22.20:19:52</modified-timestamp>
-        <introspection-timestamp>2018-03-22.20:19:53</introspection-timestamp>
+        <modified-timestamp>2018-03-24.15:09:53</modified-timestamp>
+        <introspection-timestamp>2018-03-24.15:09:53</introspection-timestamp>
       </schema>
       <sequence id="2" parent="1" name="HR_SEQ">
         <object-id>54369</object-id>
@@ -80,13 +80,13 @@
       <table id="12" parent="1" name="MESSAGE">
         <object-id>54289</object-id>
         <created-timestamp>2018-03-13.17:23:36</created-timestamp>
-        <modified-timestamp>2018-03-13.17:23:36</modified-timestamp>
+        <modified-timestamp>2018-03-24.15:09:53</modified-timestamp>
         <organization>HEAP</organization>
       </table>
       <table id="13" parent="1" name="RECRUIT">
         <object-id>54287</object-id>
         <created-timestamp>2018-03-13.17:17:46</created-timestamp>
-        <modified-timestamp>2018-03-22.20:19:52</modified-timestamp>
+        <modified-timestamp>2018-03-24.13:47:47</modified-timestamp>
         <organization>HEAP</organization>
       </table>
       <table id="14" parent="1" name="RESUME">
@@ -456,32 +456,37 @@
         <mandatory>1</mandatory>
         <data-type>NUMBER(11)</data-type>
       </column>
-      <column id="84" parent="12" name="CONTENT">
-        <data-type>NVARCHAR2(255)</data-type>
-      </column>
-      <column id="85" parent="12" name="TYPE">
+      <column id="84" parent="12" name="TARGET_ID">
         <mandatory>1</mandatory>
         <data-type>NUMBER(11)</data-type>
       </column>
-      <column id="86" parent="12" name="TARGET_ID">
+      <column id="85" parent="12" name="SENDER_ID">
         <mandatory>1</mandatory>
         <data-type>NUMBER(11)</data-type>
       </column>
-      <column id="87" parent="12" name="SENDER_ID">
-        <mandatory>1</mandatory>
-        <data-type>NUMBER(11)</data-type>
-      </column>
-      <column id="88" parent="12" name="ISREAD">
+      <column id="86" parent="12" name="IS_READ">
         <mandatory>1</mandatory>
         <data-type>NUMBER(2)</data-type>
         <default-expression>0</default-expression>
       </column>
-      <column id="89" parent="12" name="CREATE_TIME">
+      <column id="87" parent="12" name="CREATE_TIME">
         <mandatory>1</mandatory>
         <data-type>DATE</data-type>
         <default-expression>sysdate</default-expression>
       </column>
-      <index id="90" parent="12" name="SYS_C005679">
+      <column id="88" parent="12" name="IS_DELETE">
+        <mandatory>1</mandatory>
+        <data-type>NUMBER(2)</data-type>
+        <default-expression>0</default-expression>
+      </column>
+      <column id="89" parent="12" name="MESSAGE_CONTENT">
+        <data-type>NVARCHAR2(255)</data-type>
+      </column>
+      <column id="90" parent="12" name="MESSAGE_TYPE">
+        <mandatory>1</mandatory>
+        <data-type>NUMBER(11)</data-type>
+      </column>
+      <index id="91" parent="12" name="SYS_C005679">
         <name-surrogate>1</name-surrogate>
         <object-id>54290</object-id>
         <created-timestamp>2018-03-13.17:23:36</created-timestamp>
@@ -491,7 +496,7 @@
         <unique>1</unique>
         <tablespace-name>USERS</tablespace-name>
       </index>
-      <key id="91" parent="12" name="SYS_C005679">
+      <key id="92" parent="12" name="SYS_C005679">
         <name-surrogate>1</name-surrogate>
         <modified-timestamp>2018-03-13.17:23:36</modified-timestamp>
         <columns>ID</columns>
@@ -499,31 +504,34 @@
         <underlying-index>SYS_C005679</underlying-index>
         <primary>1</primary>
       </key>
-      <column id="92" parent="13" name="ID">
+      <column id="93" parent="13" name="ID">
         <mandatory>1</mandatory>
         <data-type>NUMBER(11)</data-type>
       </column>
-      <column id="93" parent="13" name="WORK_TYPE">
+      <column id="94" parent="13" name="DEPT_AND_JOB_ID">
+        <mandatory>1</mandatory>
+        <data-type>NUMBER(11)</data-type>
+      </column>
+      <column id="95" parent="13" name="WORK_TYPE">
         <mandatory>1</mandatory>
         <data-type>NVARCHAR2(255)</data-type>
       </column>
-      <column id="94" parent="13" name="LOCATION">
+      <column id="96" parent="13" name="LOCATION">
         <mandatory>1</mandatory>
         <data-type>NVARCHAR2(255)</data-type>
       </column>
-      <column id="95" parent="13" name="CREATE_TIME">
+      <column id="97" parent="13" name="RECRUIT_NUMBER">
+        <data-type>NUMBER(5)</data-type>
+      </column>
+      <column id="98" parent="13" name="CREATE_TIME">
         <mandatory>1</mandatory>
         <data-type>DATE</data-type>
         <default-expression>sysdate</default-expression>
       </column>
-      <column id="96" parent="13" name="RECRUIT_NUMBER">
-        <data-type>NUMBER(5)</data-type>
-      </column>
-      <column id="97" parent="13" name="DEPT_AND_JOB_ID">
-        <mandatory>1</mandatory>
+      <column id="99" parent="13" name="CREATER_ID">
         <data-type>NUMBER(11)</data-type>
       </column>
-      <index id="98" parent="13" name="SYS_C005672">
+      <index id="100" parent="13" name="SYS_C005672">
         <name-surrogate>1</name-surrogate>
         <object-id>54288</object-id>
         <created-timestamp>2018-03-13.17:17:47</created-timestamp>
@@ -533,7 +541,7 @@
         <unique>1</unique>
         <tablespace-name>USERS</tablespace-name>
       </index>
-      <key id="99" parent="13" name="SYS_C005672">
+      <key id="101" parent="13" name="SYS_C005672">
         <name-surrogate>1</name-surrogate>
         <modified-timestamp>2018-03-13.17:17:47</modified-timestamp>
         <columns>ID</columns>
@@ -541,21 +549,21 @@
         <underlying-index>SYS_C005672</underlying-index>
         <primary>1</primary>
       </key>
-      <column id="100" parent="14" name="ID">
+      <column id="102" parent="14" name="ID">
         <mandatory>1</mandatory>
         <data-type>NUMBER(11)</data-type>
       </column>
-      <column id="101" parent="14" name="VISITOR_ID">
+      <column id="103" parent="14" name="VISITOR_ID">
         <mandatory>1</mandatory>
         <data-type>NUMBER(11)</data-type>
       </column>
-      <column id="102" parent="14" name="SELF_APPRAISAL">
+      <column id="104" parent="14" name="SELF_APPRAISAL">
         <data-type>NVARCHAR2(255)</data-type>
       </column>
-      <column id="103" parent="14" name="INTERESTS">
+      <column id="105" parent="14" name="INTERESTS">
         <data-type>NVARCHAR2(255)</data-type>
       </column>
-      <index id="104" parent="14" name="SYS_C005659">
+      <index id="106" parent="14" name="SYS_C005659">
         <name-surrogate>1</name-surrogate>
         <object-id>54281</object-id>
         <created-timestamp>2018-03-13.16:28:04</created-timestamp>
@@ -565,7 +573,7 @@
         <unique>1</unique>
         <tablespace-name>USERS</tablespace-name>
       </index>
-      <key id="105" parent="14" name="SYS_C005659">
+      <key id="107" parent="14" name="SYS_C005659">
         <name-surrogate>1</name-surrogate>
         <modified-timestamp>2018-03-13.16:28:04</modified-timestamp>
         <columns>ID</columns>
@@ -573,21 +581,21 @@
         <underlying-index>SYS_C005659</underlying-index>
         <primary>1</primary>
       </key>
-      <column id="106" parent="15" name="ID">
+      <column id="108" parent="15" name="ID">
         <mandatory>1</mandatory>
         <data-type>NUMBER(11)</data-type>
       </column>
-      <column id="107" parent="15" name="VISITOR_ID">
+      <column id="109" parent="15" name="VISITOR_ID">
         <data-type>NUMBER(11)</data-type>
       </column>
-      <column id="108" parent="15" name="SKILL_NAME">
+      <column id="110" parent="15" name="SKILL_NAME">
         <mandatory>1</mandatory>
         <data-type>NVARCHAR2(255)</data-type>
       </column>
-      <column id="109" parent="15" name="SKILL_CERTIFICATE">
+      <column id="111" parent="15" name="SKILL_CERTIFICATE">
         <data-type>NVARCHAR2(255)</data-type>
       </column>
-      <index id="110" parent="15" name="SYS_C005662">
+      <index id="112" parent="15" name="SYS_C005662">
         <name-surrogate>1</name-surrogate>
         <object-id>54283</object-id>
         <created-timestamp>2018-03-13.16:36:17</created-timestamp>
@@ -597,7 +605,7 @@
         <unique>1</unique>
         <tablespace-name>USERS</tablespace-name>
       </index>
-      <key id="111" parent="15" name="SYS_C005662">
+      <key id="113" parent="15" name="SYS_C005662">
         <name-surrogate>1</name-surrogate>
         <modified-timestamp>2018-03-13.16:36:19</modified-timestamp>
         <columns>ID</columns>
@@ -605,35 +613,35 @@
         <underlying-index>SYS_C005662</underlying-index>
         <primary>1</primary>
       </key>
-      <column id="112" parent="16" name="ID">
+      <column id="114" parent="16" name="ID">
         <mandatory>1</mandatory>
         <data-type>NUMBER(11)</data-type>
       </column>
-      <column id="113" parent="16" name="CONTENT">
+      <column id="115" parent="16" name="CONTENT">
         <mandatory>1</mandatory>
         <data-type>NVARCHAR2(255)</data-type>
       </column>
-      <column id="114" parent="16" name="START_TIME">
+      <column id="116" parent="16" name="START_TIME">
         <mandatory>1</mandatory>
         <data-type>DATE</data-type>
       </column>
-      <column id="115" parent="16" name="END_TIME">
+      <column id="117" parent="16" name="END_TIME">
         <mandatory>1</mandatory>
         <data-type>DATE</data-type>
       </column>
-      <column id="116" parent="16" name="LOCATION">
+      <column id="118" parent="16" name="LOCATION">
         <mandatory>1</mandatory>
         <data-type>NVARCHAR2(255)</data-type>
       </column>
-      <column id="117" parent="16" name="TUTOR">
+      <column id="119" parent="16" name="TUTOR">
         <mandatory>1</mandatory>
         <data-type>NVARCHAR2(255)</data-type>
       </column>
-      <column id="118" parent="16" name="TITLE">
+      <column id="120" parent="16" name="TITLE">
         <mandatory>1</mandatory>
         <data-type>NVARCHAR2(255)</data-type>
       </column>
-      <index id="119" parent="16" name="SYS_C005795">
+      <index id="121" parent="16" name="SYS_C005795">
         <name-surrogate>1</name-surrogate>
         <object-id>54554</object-id>
         <created-timestamp>2018-03-21.20:16:14</created-timestamp>
@@ -643,7 +651,7 @@
         <unique>1</unique>
         <tablespace-name>USERS</tablespace-name>
       </index>
-      <key id="120" parent="16" name="SYS_C005795">
+      <key id="122" parent="16" name="SYS_C005795">
         <name-surrogate>1</name-surrogate>
         <modified-timestamp>2018-03-21.20:16:14</modified-timestamp>
         <columns>ID</columns>
@@ -651,48 +659,48 @@
         <underlying-index>SYS_C005795</underlying-index>
         <primary>1</primary>
       </key>
-      <column id="121" parent="17" name="ID">
+      <column id="123" parent="17" name="ID">
         <mandatory>1</mandatory>
         <data-type>NUMBER(11)</data-type>
       </column>
-      <column id="122" parent="17" name="VISITOR_NAME">
+      <column id="124" parent="17" name="VISITOR_NAME">
         <mandatory>1</mandatory>
         <data-type>NVARCHAR2(255)</data-type>
       </column>
-      <column id="123" parent="17" name="VISITOR_PASSWORD">
+      <column id="125" parent="17" name="VISITOR_PASSWORD">
         <mandatory>1</mandatory>
         <data-type>NVARCHAR2(255)</data-type>
       </column>
-      <column id="124" parent="17" name="VISITOR_GENDER">
+      <column id="126" parent="17" name="VISITOR_GENDER">
         <data-type>VARCHAR2(255)</data-type>
       </column>
-      <column id="125" parent="17" name="VISITOR_AGE">
+      <column id="127" parent="17" name="VISITOR_AGE">
         <data-type>NUMBER(4)</data-type>
       </column>
-      <column id="126" parent="17" name="VISITOR_EMAIL">
+      <column id="128" parent="17" name="VISITOR_EMAIL">
         <data-type>VARCHAR2(255)</data-type>
       </column>
-      <column id="127" parent="17" name="VISITOR_PHONE">
+      <column id="129" parent="17" name="VISITOR_PHONE">
         <data-type>VARCHAR2(255)</data-type>
       </column>
-      <column id="128" parent="17" name="VISITOR_PHOTO">
+      <column id="130" parent="17" name="VISITOR_PHOTO">
         <data-type>VARCHAR2(255)</data-type>
       </column>
-      <column id="129" parent="17" name="VISITOR_CREATE_TIME">
+      <column id="131" parent="17" name="VISITOR_CREATE_TIME">
         <data-type>DATE</data-type>
         <default-expression>sysdate</default-expression>
       </column>
-      <column id="130" parent="17" name="VISITOR_MODIFIED_TIME">
+      <column id="132" parent="17" name="VISITOR_MODIFIED_TIME">
         <data-type>DATE</data-type>
         <default-expression>sysdate
 </default-expression>
       </column>
-      <column id="131" parent="17" name="IS_NORMAL">
+      <column id="133" parent="17" name="IS_NORMAL">
         <mandatory>1</mandatory>
         <data-type>NUMBER(2)</data-type>
         <default-expression>1</default-expression>
       </column>
-      <index id="132" parent="17" name="SYS_C005638">
+      <index id="134" parent="17" name="SYS_C005638">
         <name-surrogate>1</name-surrogate>
         <object-id>54267</object-id>
         <created-timestamp>2018-03-13.15:42:43</created-timestamp>
@@ -702,7 +710,7 @@
         <unique>1</unique>
         <tablespace-name>USERS</tablespace-name>
       </index>
-      <key id="133" parent="17" name="SYS_C005638">
+      <key id="135" parent="17" name="SYS_C005638">
         <name-surrogate>1</name-surrogate>
         <modified-timestamp>2018-03-13.15:42:43</modified-timestamp>
         <columns>ID</columns>
@@ -710,25 +718,25 @@
         <underlying-index>SYS_C005638</underlying-index>
         <primary>1</primary>
       </key>
-      <column id="134" parent="18" name="ID">
+      <column id="136" parent="18" name="ID">
         <data-type>NUMBER(11)</data-type>
       </column>
-      <column id="135" parent="18" name="VISITOR_ID">
+      <column id="137" parent="18" name="VISITOR_ID">
         <data-type>NUMBER(11)</data-type>
       </column>
-      <column id="136" parent="18" name="START_DATE">
+      <column id="138" parent="18" name="START_DATE">
         <data-type>DATE</data-type>
       </column>
-      <column id="137" parent="18" name="END_DATE">
+      <column id="139" parent="18" name="END_DATE">
         <data-type>DATE</data-type>
       </column>
-      <column id="138" parent="18" name="COMPANY_NAME">
+      <column id="140" parent="18" name="COMPANY_NAME">
         <data-type>NVARCHAR2(255)</data-type>
       </column>
-      <column id="139" parent="18" name="POSITION">
+      <column id="141" parent="18" name="POSITION">
         <data-type>NVARCHAR2(255)</data-type>
       </column>
-      <column id="140" parent="18" name="WORK_INFO">
+      <column id="142" parent="18" name="WORK_INFO">
         <data-type>NVARCHAR2(255)</data-type>
       </column>
     </database-model>

@@ -1,5 +1,6 @@
 package com.iotek.service.impl;
 
+import com.iotek.Util.TimeUtil;
 import com.iotek.dao.RecruitDao;
 import com.iotek.po.Recruit;
 import com.iotek.service.RecruitService;
@@ -16,24 +17,18 @@ public class RecruitServiceImpl implements RecruitService {
 
     @Override
     public boolean addRecruit(Recruit recruit) {
-        if (recruit == null) {
-            return  false;
-        }
-
+        recruit.setCreateTime(TimeUtil.getTimeStamp());
         return recruitDao.addRecruit(recruit);
     }
 
     @Override
     public Recruit updateRecruit(Recruit recruit) {
-        if (recruit == null) {
-            return  null;
-        }
         return    recruitDao.updateRecruit(recruit);
     }
 
     @Override
-    public List<Recruit> queryAllRecruit() {
-        return null;
+    public List<Recruit> queryRecruit(Recruit recruit) {
+        return recruitDao.queryRecruit(recruit);
     }
 
     @Override

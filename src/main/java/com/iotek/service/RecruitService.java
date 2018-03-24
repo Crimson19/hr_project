@@ -9,7 +9,7 @@ public interface RecruitService {
 
     Recruit updateRecruit(Recruit recruit);
 
-    List<Recruit> queryAllRecruit();
+    List<Recruit> queryRecruit(Recruit recruit);
 
     boolean deleteRecruit(Recruit recruit);
 }

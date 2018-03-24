@@ -8,17 +8,17 @@ public class Resume implements Serializable {
     private Integer visitorId;
     private String intersets;
     private String selfAppraisal;
-    private List<Skill> skills;
+    private Integer recruitId;
 
     public Resume() {
     }
 
-    public List<Skill> getSkills() {
-        return skills;
+    public Integer getRecruitId() {
+        return recruitId;
     }
 
-    public void setSkills(List<Skill> skills) {
-        this.skills = skills;
+    public void setRecruitId(Integer recruitId) {
+        this.recruitId = recruitId;
     }
 
     public Integer getId() {
@@ -60,6 +60,7 @@ public class Resume implements Serializable {
                 ", visitorId=" + visitorId +
                 ", intersets='" + intersets + '\'' +
                 ", selfAppraisal='" + selfAppraisal + '\'' +
+                ", recruitId=" + recruitId +
                 '}';
     }
 }

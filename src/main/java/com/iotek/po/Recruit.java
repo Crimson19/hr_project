@@ -2,6 +2,7 @@ package com.iotek.po;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.List;
 
 public class Recruit implements Serializable {
     private Integer id;
@@ -11,8 +12,26 @@ public class Recruit implements Serializable {
     private Integer recruitNumber;
     private Timestamp createTime;
     private DeptAndJob deptAndJob;
+    private Integer createrId;
+    private List<Resume> resumeList;
 
     public Recruit() {
+    }
+
+    public List<Resume> getResumeList() {
+        return resumeList;
+    }
+
+    public Integer getCreaterId() {
+        return createrId;
+    }
+
+    public void setCreaterId(Integer createrId) {
+        this.createrId = createrId;
+    }
+
+    public void setResumeList(List<Resume> resumeList) {
+        this.resumeList = resumeList;
     }
 
     public DeptAndJob getDeptAndJob() {
@@ -81,6 +100,8 @@ public class Recruit implements Serializable {
                 ", recruitNumber=" + recruitNumber +
                 ", createTime=" + createTime +
                 ", deptAndJob=" + deptAndJob +
+                ", createrId=" + createrId +
+                ", resumeList=" + resumeList +
                 '}';
     }
 }

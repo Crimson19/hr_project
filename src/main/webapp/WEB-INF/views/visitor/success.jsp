@@ -18,7 +18,7 @@
         <div>
             <%--<c:choose>--%>
                 <%--<c:when test="${sessionScope.visitor!=null}">--%>
-                    <%--<a class="navbar-text navbar-left" href=""><c:out value="${sessionScope.visitor.visitorName}"></c:out></a>--%>
+                    <a class="navbar-text navbar-left" href="">${visitor.visitorName}</a>
                 <%--</c:when>--%>
                 <%--<c:otherwise>--%>
                     <%--<a class="navbar-text navbar-left" href="/visitor/index.view">请登录</a>--%>

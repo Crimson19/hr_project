@@ -9,6 +9,44 @@
     <script src="http://cdn.static.runoob.com/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="/scripts/bootstrap.min.js"></script>
     <script src="/scripts/jquery-3.3.1.min.js"></script>
+    <script>
+        var deptAndJobArray;
+        var deptSelectOption = document.getElementsByName("getDeptId");
+        /*        $(document).ready(function(){
+         $.getJSON("Dept/showDeptAjax.view",function(data,status){
+         alert("Data: " + data + "nStatus: " + status);
+         deptAndJobArray = data;
+         addDept();
+         });
+         });*/
+        $.ajax({
+            url:"company/showDeptAjax.view",
+            type: "get",
+            async: false,
+            timeout: 5000,
+            dataType: "json",
+            success:function (data,status) {
+                deptAndJobArray=data;
+                console.log(data);
+                console.log(status);
+                addDept();
+                console.log(data[0].id);
+                console.log(data[0].deptName);
+            }
+        });
+        function addDept(){
+            deptSelectOption.length = deptAndJobArray.length;
+            for(var i=0;i<deptSelectOption.length;i++){
+                deptSelectOption.options[i].value=deptAndJobArray[i].id;
+                deptSelectOption.options[i].text=deptAndJobArray[i].deptName;
+            }
+        }
+        function addDeptAndJob(){
+            var deptId = deptAndJobArray[0].id;
+            console.log(deptId);
+            $.get("admin/adminAddJob.do",{deptId:deptId});
+        }
+    </script>
 </head>
 <body>
 <div class="container">
@@ -27,11 +65,9 @@
                     </tr>
                     <tr>
                         <td>
-                            <label>
-                                <select>
-                                    <option value="-1" id="deptId"></option>
-                                </select>
-                            </label>
+                            <select name="getDeptId">
+                                <option value="-1" >选择部门</option>
+                            </select>
                         </td>
                         <td>
                             <input type="text" name="jobName" placeholder="职位名称">

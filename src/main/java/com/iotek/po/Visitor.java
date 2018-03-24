@@ -2,6 +2,7 @@ package com.iotek.po;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.List;
 
 public class Visitor implements Serializable {
     private  Integer  id;
@@ -15,6 +16,8 @@ public class Visitor implements Serializable {
     private Timestamp visitorCreateTime;
     private Timestamp visitorModifiedTime;
     private Integer isNormal;
+    private List<Skill> skillList;
+    private List<WorkExp> workExps;
 
     public Visitor(){
     }

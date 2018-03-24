@@ -34,12 +34,12 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <form name="form1" action="/recruit/adminAddRecruit.do">
+            <form name="form1" action="/recruit/addRecruit.do">
                 <table class="table table-bordered">
                     <caption>发布招聘</caption>
                     <tr>
                         <td>DeptAndJobId</td>
-                        <td><input type="number" name="jobAndDeptId"></td>
+                        <td><input type="number" name="deptAndJobId"></td>
                         <td>招聘人数</td>
                         <td><input type="number" name="workerNumber"></td>
                         <td>工作类型</td>

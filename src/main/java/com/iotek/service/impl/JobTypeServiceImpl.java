@@ -15,18 +15,7 @@ public class JobTypeServiceImpl implements com.iotek.service.JobTypeService {
     private JobTypeDao jobTypeDao;
 
     @Override
-    public JobType findJobTypeByName(JobType jobType) {
-        if (jobType== null) {
-            return   null;
-        }
-        return jobTypeDao.findJobTypeByName(jobType);
-    }
-
-    @Override
-    public boolean updateJobType(JobType jobType) {
-        if (jobType== null) {
-            return   false;
-        }
+    public JobType updateJobType(JobType jobType) {
         return jobTypeDao.updateJobType(jobType);
     }
 

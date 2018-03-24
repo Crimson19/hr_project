@@ -15,6 +15,7 @@
         <result column="VISITOR_CREATE_TIME" property="visitorCreateTime"></result>
         <result column="VISITOR_MODIFIED_TIME" property="visitorModifiedTime"></result>
         <result column="IS_NORMAL" property="isNormal"></result>
+
     </resultMap>
     <sql id="createId">
         SELECT HR_SEQ.nextval FROM dual

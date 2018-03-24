@@ -14,14 +14,6 @@ public class ResumeServiceImpl implements ResumeServive {
     @Autowired
     private ResumeDao resumeDao;
 
-    @Override
-    public Resume findResumeByName(Resume resume) {
-        if (resume == null) {
-            return   null;
-        }
-
-        return resumeDao.findResumeByName(resume);
-    }
 
     @Override
     public boolean addResume(Resume resume) {
@@ -33,19 +25,16 @@ public class ResumeServiceImpl implements ResumeServive {
 
     @Override
     public boolean deleteResume(Resume resume) {
-        return false;
+        return resumeDao.deleteResume(resume);
     }
 
     @Override
-    public boolean updateResume(Resume resume) {
-        if (resume == null) {
-            return  false;
-        }
+    public Resume updateResume(Resume resume) {
         return    resumeDao.updateResume(resume);
     }
 
     @Override
-    public List<Resume> queryAllResume() {
-        return null;
+    public List<Resume> queryResume(Resume resume) {
+        return resumeDao.queryResume(resume);
     }
 }

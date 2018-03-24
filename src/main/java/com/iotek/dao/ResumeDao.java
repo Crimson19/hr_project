@@ -12,7 +12,7 @@ public interface ResumeDao {
 
     boolean deleteResume(Resume resume);
 
-    boolean updateResume(Resume resume);
+    Resume updateResume(Resume resume);
 
-    List<Resume> queryAllResume();
+    List<Resume> queryResume(Resume resume);
 }
