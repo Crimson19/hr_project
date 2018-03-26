@@ -6,13 +6,24 @@ import com.iotek.service.EmpolyeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service(value = "empolyeeService")
 public class EmpolyeeServiceImpl implements EmpolyeeService {
     @Autowired
     private EmpolyeeDao empolyeeDao;
+
     @Override
-    public Empolyee findEmpolyeeByVId(int vid) {
-        return empolyeeDao.findEmpolyeeByVId(vid);
+    public boolean updateEmp(Empolyee empolyee) {
+        if (empolyee == null){
+            return false;
+        }
+        return empolyeeDao.updateEmp(empolyee);
+    }
+
+    @Override
+    public List<Empolyee> queryEmp(Empolyee empolyee) {
+        return empolyeeDao.queryEmp(empolyee);
     }
 
     @Override

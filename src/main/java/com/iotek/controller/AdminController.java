@@ -26,32 +26,28 @@ public class AdminController {
 
 
     @RequestMapping(value = "/login.do")
-    public   String  login(@ModelAttribute Admin admin,
-                           HttpSession  session, Model model,
-                           @RequestParam(value = "isremember" ,required = false) String isremember,
-                           HttpServletResponse response
-    ){
-        System.out.println("登陆之前"+admin);
+    public   String  login(@ModelAttribute Admin admin, HttpSession  session, Model model){
+//        System.out.println("登陆之前"+admin);
         admin = adminService.queryAdminByName(admin);
         if (admin == null) {
             model.addAttribute("info","登录失败");
             return "admin/login";
         }
 //        保存cookie
-        System.out.println(isremember);
-        if ("on".equals(isremember)){
-            Cookie cookieName=new Cookie("adminName",admin.getAdminName());
-            cookieName.setMaxAge(60*60*24*7);
-            cookieName.setPath("/");
-            Cookie cookiePassword=new Cookie("adminPassword",admin.getAdminPassword());
-            cookiePassword.setMaxAge(60*60*24*1);
-            cookiePassword.setPath("/");
-            response.addCookie(cookieName);
-            response.addCookie(cookiePassword);
-        }
+//        System.out.println(isremember);
+//        if ("on".equals(isremember)){
+//            Cookie cookieName=new Cookie("adminName",admin.getAdminName());
+//            cookieName.setMaxAge(60*60*24*7);
+//            cookieName.setPath("/");
+//            Cookie cookiePassword=new Cookie("adminPassword",admin.getAdminPassword());
+//            cookiePassword.setMaxAge(60*60*24*1);
+//            cookiePassword.setPath("/");
+//            response.addCookie(cookieName);
+//            response.addCookie(cookiePassword);
+//        }
 
         session.setAttribute("admin",admin);
-        model.addAttribute("info","登录成功");
+        model.addAttribute("admin",admin);
         return "admin/success";
     }
 

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.iotek.dao.AttendanceDao">
+    <resultMap id="attendanceMap" type="Attendance">
+        <id column="id" property="id"></id>
+        <result column="EMP_ID" property="empId"></result>
+        <result column="START_TIME" property="startTime"></result>
+        <result column="END_TIME" property="endTime"></result>
+        <result column="STATUS" property="status"></result>
+        <association property="empolyee" column="{id=emp_Id}" select="com.iotek.dao.EmpolyeeDao.queryEmp"></association>
+    </resultMap>
+    <insert id="addAttendance" parameterType="Attendance">
+        <selectKey resultType="java.lang.Integer" keyProperty="id" order="BEFORE" >
+            SELECT HR_SEQ.nextval from dual
+        </selectKey>
+        insert INTO ATTENDANCE
+        <trim prefix="(" suffixOverrides="," suffix=")">
+            <if test="id!=null">id,</if>
+            <if test="empId!=null">EMP_ID,</if>
+            <if test="startTime!=null">START_TIME,</if>
+            <if test="endTime!=null">END_TIME,</if>
+            <if test="status!=null">STATUS,</if>
+        </trim>
+        <trim prefix=" values (" suffix=")" suffixOverrides=",">
+            <if test="id!=null">#{id},</if>
+            <if test="empId!=null">#{empId},</if>
+            <if test="startTime!=null">#{startTime},</if>
+            <if test="endTime!=null">#{endTime},</if>
+            <if test="status!=null">#{status},</if>
+        </trim>
+    </insert>
+    <update id="updateAttendance" parameterType="Attendance">
+        UPDATE ATTENDANCE
+        <set>
+            <trim suffix=" " suffixOverrides=",">
+                <if test="id!=null">id=#{id},</if>
+                <if test="empId!=null">EMP_ID=#{empId},</if>
+                <if test="startTime!=null">START_TIME=#{startTime},</if>
+                <if test="endTime!=null">END_TIME=#{endTime},</if>
+                <if test="status!=null">STATUS=#{status},</if>
+            </trim>
+        </set>
+        <where>
+            <choose>
+                <when test="id!=null">
+                    id=#{id}
+                </when>
+                <otherwise>
+                    1=2
+                </otherwise>
+            </choose>
+        </where>
+    </update>
+    <select id="queryAttendance" parameterType="Attendance" resultMap="attendanceMap">
+        SELECT * from ATTENDANCE
+        <where>
+            <trim suffix=" " suffixOverrides=",">
+                <if test="id!=null">id=#{id},</if>
+                <if test="empId!=null">EMP_ID=#{empId},</if>
+                <if test="startTime!=null">START_TIME=#{startTime},</if>
+                <if test="endTime!=null">END_TIME=#{endTime},</if>
+                <if test="status!=null">STATUS=#{status},</if>
+            </trim>
+        </where>
+    </select>
+</mapper>

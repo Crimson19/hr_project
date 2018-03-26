@@ -3,7 +3,7 @@
 <% String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath() + "/";%>
 <html>
 <head>
-    <title>找工作</title>
+    <title>$Title$</title>
     <base href="<%= basePath%>">
     <link href="/styles/bootstrap.min.css" rel="stylesheet">
     <script src="/scripts/jquery-3.0.0.js"></script>
@@ -14,14 +14,8 @@
         var element;
         var textInfo/*;alert显示的字符串*/
         var mydate;/*ajax的返回值,布尔*/
-        function del(paramsIndex,ele) {
-            element=ele;
-            textInfo="删除部门";
-            var params = {oper:"delete",deptId:paramsIndex.toString()};
-            var ajaxReturn = ajax("get","company/deleteDept.do",params,true,ajaxDoDelete());
-            console.log(ajaxReturn);
-            console.log(eval(ajaxReturn));
-            console.log(mydate);
+        function sendRec(recId){
+            $.getJSON()
         }
         function ajaxDoDelete() {
             myShow();
@@ -61,26 +55,35 @@
         <div class="col-md-12">
             <table class="table table-bordered">
                 <tr>
-                    <th>公司</th>
-                    <th>部门</th>
-                    <th>职位</th>
-                    <th>工资</th>
-                    <th>操作</th>
+                    <td>职位</td>
+                    <td>${Recruit.deptAndJob.job.jobName}</td>
+                    <td>招聘人数${Recruit.recruitNumber}</td>
                 </tr>
-                <c:forEach items="${Recruit}" var="recruit">
-                    <tr>
-                        <td><c:out value="${recruit.deptAndJob.company.companyName}"></c:out></td>
-                        <td><c:out value="${recruit.deptAndJob.dept.deptName}"></c:out></td>
-                        <td><c:out value="${recruit.deptAndJob.job.jobName}"></c:out></td>
-                        <td><c:out value="${recruit.deptAndJob.job.sal}"></c:out></td>
-                        <td>
-                            <a class="btn-success btn" href="">投递</a>
-                            <a class="btn-success btn" href="/recruit/showRecruit/${recruit.id}">详情</a>
-                        </td>
-                    </tr>
-                </c:forEach>
-            </table>
-            <a href="/admin/adminSuccess.do">返回</a>
+                <tr><td>工作地点：${Recruit.location}</td></tr>
+                <tr>
+                    <td>部门:${Recruit.deptAndJob.dept.deptName}</td>
+                    <td>公司:${Recruit.deptAndJob.company.companyName}</td>
+                    <td>工作类型--${Recruit.deptAndJob.job.jobType.jobType1}--${Recruit.deptAndJob.job.jobType.jobType2}</td>
+                </tr>
+                <tr>
+                    <td colspan="4">
+                        职位详情：&nbsp;&nbsp;&nbsp;&nbsp;
+                        ${Recruit.deptAndJob.job.jobInfo}
+                    </td>
+                </tr><tr>
+                <td colspan="2">
+                    部门详情：&nbsp;&nbsp;&nbsp;&nbsp;
+                    ${Recruit.deptAndJob.dept.deptInfo}
+                </td>
+            </tr><tr>
+                <td colspan="3">
+                    公司详情：&nbsp;&nbsp;&nbsp;&nbsp;
+                    ${Recruit.deptAndJob.company.companyInfo}
+                </td>
+            </tr>
+            </table><br/>
+            <input type="number" name="recruitId" value="${Recruit.id}" hidden="hidden">
+            <a class="btn btn-success" value="投递简历" href="/resume/addResume.view/${Recruit.id}/${Recruit.createrId}"></a>
         </div>
     </div>
 </div>

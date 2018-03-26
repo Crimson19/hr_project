@@ -11,6 +11,7 @@
         <result column="HIREDATE" property="hiredate"></result>
         <result column="FIREDATE" property="firedate"></result>
         <result column="MODIFIED_TIME" property="modifiedTime"></result>
+        <association property="deptAndJob" column="{id=DEPT_AND_JOB_ID}" select="com.iotek.dao.DeptAndJobDao.queryDeptAndJob"></association>
     </resultMap>
     <sql id="createId">
         SELECT HR_SEQ.nextval FROM dual
@@ -68,8 +69,42 @@
             </if>
         </trim>
     </insert>
-    <select id="findEmpolyeeByVId" parameterType="int" resultMap="empolyeeMap">
-        SELECT * FROM EMPOLYEE
-        WHERE  VISITOR_ID = #{param1}
+    <update id="updateEmp" parameterType="Empolyee">
+        UPDATE EMPOLYEE
+        <set>
+            <trim suffix=" " suffixOverrides=",">
+                <if test="id!=null">id=#{id},</if>
+                <if test="visitorId!=null">visitor_Id=#{visitorId},</if>
+                <if test="sal!=null">sal=#{sal},</if>
+                <if test="hiredate!=null">hiredate=#{hiredate},</if>
+                <if test="firedate!=null">firedate=#{firedate},</if>
+                <if test="modifiedTime!=null">MODIFIED_TIME=#{modifiedTime},</if>
+                <if test="deptAndJobId!=null">DEPT_AND_JOB_ID=#{deptAndJobId},</if>
+            </trim>
+        </set>
+        <where>
+            <choose>
+                <when test="id!=null">
+                    id=#{id}
+                </when>
+                <otherwise>
+                    1=2
+                </otherwise>
+            </choose>
+        </where>
+    </update>
+    <select id="queryEmp" parameterType="Empolyee" resultMap="empolyeeMap">
+        SELECT * from EMPOLYEE
+        <where>
+            <trim suffix=" " suffixOverrides=",">
+                <if test="id!=null">id=#{id},</if>
+                <if test="visitorId!=null">visitor_Id=#{visitorId},</if>
+                <if test="sal!=null">sal=#{sal},</if>
+                <if test="hiredate!=null">hiredate=#{hiredate},</if>
+                <if test="firedate!=null">firedate=#{firedate},</if>
+                <if test="modifiedTime!=null">MODIFIED_TIME=#{modifiedTime},</if>
+                <if test="deptAndJobId!=null">DEPT_AND_JOB_ID=#{deptAndJobId},</if>
+            </trim>
+        </where>
     </select>
 </mapper>

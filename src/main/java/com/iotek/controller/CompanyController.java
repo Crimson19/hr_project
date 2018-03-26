@@ -1,12 +1,7 @@
 package com.iotek.controller;
 
-
 import com.iotek.po.*;
-import com.iotek.service.DeptAndJobService;
-import com.iotek.service.DeptService;
-import com.iotek.service.JobService;
-import com.iotek.service.JobTypeService;
-import com.iotek.service.impl.DeptAndJobServiceImpl;
+import com.iotek.service.*;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,6 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.StringWriter;
@@ -41,9 +39,37 @@ public class CompanyController {
     @Autowired
     private DeptAndJobService deptAndJobService;
 
+    @Autowired
+    private CompanyService companyService;
+
 
     @RequestMapping(value = "/index.view")
-    public   String   indexPage(){
+    public   String   indexPage(HttpSession session, HttpServletResponse response, HttpServletRequest request) throws ServletException, IOException{
+        Admin admin = (Admin) session.getAttribute("Admin");
+        Integer companyId = admin.getCompanyId();
+        String info = null;
+        if (companyId == null) {
+            info = "公司信息空";
+            request.setAttribute("info",info);
+            request.getRequestDispatcher("company/index").forward(request,response);
+/*
+            request.getRequestDispatcher("WEB-INF/views/admin/showCompany/adminShowCompany.jsp").forward(request,response);
+*/
+            return "admin/success";
+            /*return "redirect:admin/showCompany/adminShowCompany";*/
+        }
+        Company company = new Company();
+        company.setId(companyId);
+        Company company1 = companyService.queryCompany(company);
+        if (company1 == null) {
+            info = "公司信息空";
+            request.setAttribute("info",info);
+            request.getRequestDispatcher("WEB-INF/views/admin/success.jsp").forward(request,response);
+/*            return "redirect:admin/success";*/
+            return "admin/success";
+        }
+        request.setAttribute("company",company1);
+        request.getRequestDispatcher("WEB-INF/views/company/index.jsp").forward(request,response);
         return "company/index";
     }
 

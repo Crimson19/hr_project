@@ -11,5 +11,4 @@ public interface AttendanceDao {
 
     List<Attendance> queryAttendance(Attendance attendance);
 
-    Attendance findAttendanceByid(int eid);
 }

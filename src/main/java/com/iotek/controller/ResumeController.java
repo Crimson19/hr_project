@@ -1,6 +1,5 @@
 package com.iotek.controller;
 
-
 import com.iotek.Util.TimeUtil;
 import com.iotek.po.Message;
 import com.iotek.po.Recruit;
@@ -9,8 +8,6 @@ import com.iotek.po.Visitor;
 import com.iotek.service.MessageService;
 import com.iotek.service.RecruitService;
 import com.iotek.service.ResumeServive;
-import com.iotek.service.impl.MessageServiceImpl;
-import com.iotek.service.impl.ResumeServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -35,16 +32,11 @@ public class ResumeController {
     private MessageService messageService;
 
 
-    @RequestMapping(value = "/index.view")
-    public   String   indexPage(){
-        return "resume/index";
-    }
-
-    @RequestMapping(value = "/addResume.view/{recId}/{createrId}")
-    public   String   addResumePage(Model model, @PathVariable(value = "recId") String recId, @PathVariable(value = "createrId") String createrId){
-        int recIdInt = Integer.parseInt(recId);
+    @RequestMapping(value = "/addResume.view/{recruitId}/{createrId}")
+    public   String   addResumePage(Model model, @PathVariable(value = "recruitId") String recruitId, @PathVariable(value = "createrId") String createrId){
+        int recIdInt = Integer.parseInt(recruitId);
         int createrIdInt = Integer.parseInt(createrId);
-        model.addAttribute("recId",recIdInt);
+        model.addAttribute("recruitId",recIdInt);
         model.addAttribute("createrId",createrIdInt);
         Recruit recruit = new Recruit();
         recruit.setId(recIdInt);

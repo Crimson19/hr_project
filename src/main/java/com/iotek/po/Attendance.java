@@ -4,19 +4,24 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 
 public class Attendance implements Serializable {
-    public static final Integer NORMAL = 0;
-    public static final Integer LATE = 1;
-    public static final Integer ABSENCE = 2;
 
     private Integer id;
     private Integer empId;
     private Timestamp startTime;
     private Timestamp endTime;
     private Integer status;
+    private Empolyee empolyee;
 
     public Attendance() {
     }
 
+    public Empolyee getEmpolyee() {
+        return empolyee;
+    }
+
+    public void setEmpolyee(Empolyee empolyee) {
+        this.empolyee = empolyee;
+    }
 
     public Integer getEmpId() {
         return empId;
@@ -66,6 +71,7 @@ public class Attendance implements Serializable {
                 ", startTime=" + startTime +
                 ", endTime=" + endTime +
                 ", status=" + status +
+                ", empolyee=" + empolyee +
                 '}';
     }
 }

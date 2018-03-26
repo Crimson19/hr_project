@@ -4,11 +4,13 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 
 public class Message implements Serializable{
-    public static Integer NOTICE_IS_DELETE = 1;
-    public static Integer NOTICE_NOT_DELETE = 0;
-    public static Integer NOTICE_NOT_READ = 0;
-    public static Integer NOTICE_IS_READ = 1;
+    public static Integer MESSAGE_IS_DELETE = 1;
+    public static Integer MESSAGE_NOT_DELETE = 0;
+    public static Integer MESSAGE_NOT_READ = 0;
+    public static Integer MESSAGE_IS_READ = 1;
     public static String RECRUIT_MESSAGE = "求职消息";
+    public static String INTERVIEW_MESSAGE= "面试消息";
+    public static String NEW_EMPLOYEE_MESSAGE = "成功入职";/*入职记录*/
 
     private Integer id;
     private String messageContent;

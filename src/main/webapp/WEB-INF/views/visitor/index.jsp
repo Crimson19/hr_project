@@ -6,8 +6,8 @@
     <base href="<%= basePath%>">
     <link href="/styles/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+    <script src="/scripts/jquery-3.0.0.js"></script>
     <script src="/scripts/bootstrap.min.js"></script>
-    <script src="/scripts/jquery-3.3.1.min.js"></script>
 </head>
 <body>
 <h3>${info}</h3>

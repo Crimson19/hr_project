@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.iotek.dao.EmpAndTrainDao">
+    <resultMap id="eatMap" type="EmpAndTrain">
+        <id column="id" property="id"></id>
+        <result column="EMP_ID" property="empId"></result>
+        <result column="TRAIN_ID" property="trainId"></result>
+        <result column="TRAIN_TYPE" property="type"></result>
+        <association property="empolyee" column="{id=EMP_ID}" select="com.iotek.dao.EmpolyeeDao.queryEmp"></association>
+        <association property="train" column="{id=TRAIN_ID}" select="com.iotek.dao.TrainDao.queryTrain"></association>
+    </resultMap>
+    <insert id="addEAT" parameterType="EmpAndTrain">
+        <selectKey resultType="java.lang.Integer" keyProperty="id" order="BEFORE" >
+            SELECT HR_SEQ.nextval from dual
+        </selectKey>
+        insert INTO EMP_AND_TRAIN
+        <trim prefix="(" suffixOverrides="," suffix=")">
+            <if test="id!=null">id,</if>
+            <if test="empId!=null">EMP_ID,</if>
+            <if test="trainId!=null">TRAIN_ID,</if>
+            <if test="type!=null">TRAIN_TYPE,</if>
+        </trim>
+        <trim prefix=" values (" suffix=")" suffixOverrides=",">
+            <if test="id!=null">#{id},</if>
+            <if test="empId!=null">#{empId},</if>
+            <if test="trainId!=null">#{trainId},</if>
+            <if test="type!=null">#{type},</if>
+        </trim>
+    </insert>
+    <update id="updateEAT" parameterType="EmpAndTrain">
+        UPDATE EMP_AND_TRAIN
+        <set>
+            <trim suffix=" " suffixOverrides=",">
+                <if test="id!=null">id=#{id},</if>
+                <if test="empId!=null">EMP_ID=#{empId},</if>
+                <if test="trainId!=null">TRAIN_ID=#{trainId},</if>
+                <if test="type!=null">TRAIN_TYPE=#{type},</if>
+            </trim>
+        </set>
+        <where>
+            <choose>
+                <when test="id!=null">
+                    id=#{id}
+                </when>
+                <otherwise>
+                    1=2
+                </otherwise>
+            </choose>
+        </where>
+    </update>
+    <select id="queryEAT" parameterType="EmpAndTrain" resultMap="eatMap">
+        SELECT * from EMP_AND_TRAIN
+        <where>
+            <trim suffix=" " suffixOverrides=",">
+                <if test="id!=null">id=#{id},</if>
+                <if test="empId!=null">EMP_ID=#{empId},</if>
+                <if test="trainId!=null">TRAIN_ID=#{trainId},</if>
+                <if test="type!=null">TRAIN_TYPE=#{type},</if>
+            </trim>
+        </where>
+        /*查雇员是不是离职，就查firedate*/
+    </select>
+    <delete id="deleteEAT" parameterType="EmpAndTrain">
+        DELETE FROM EMP_AND_TRAIN WHERE id=#{id}
+    </delete>
+</mapper>

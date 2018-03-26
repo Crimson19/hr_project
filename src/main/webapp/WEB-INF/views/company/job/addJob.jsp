@@ -1,3 +1,5 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <% String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath() + "/";%>
 <html>
@@ -7,8 +9,8 @@
     <link href="/styles/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
     <script src="http://cdn.static.runoob.com/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="/scripts/jquery-3.0.0.js"></script>
     <script src="/scripts/bootstrap.min.js"></script>
-    <script src="/scripts/jquery-3.3.1.min.js"></script>
     <script>
         var deptAndJobArray;
         var deptSelectOption = document.getElementsByName("getDeptId");
@@ -44,7 +46,7 @@
         function addDeptAndJob(){
             var deptId = deptAndJobArray[0].id;
             console.log(deptId);
-            $.get("admin/adminAddJob.do",{deptId:deptId});
+            $.get("company/addJob.do",{deptId:deptId});
         }
     </script>
 </head>
@@ -52,7 +54,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <form action="admin/adminAddJob.do">
+            <form name="form1" action="/company/addJob.do">
                 <table class="table table-bordered">
                     <tr>
                         <th>部门名称</th>

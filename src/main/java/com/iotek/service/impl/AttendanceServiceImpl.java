@@ -35,8 +35,4 @@ public class AttendanceServiceImpl implements AttendanceService{
         return attendanceDao.queryAttendance(attendance);
     }
 
-    @Override
-    public Attendance findAttendanceByid(int eid) {
-        return attendanceDao.findAttendanceByid(eid);
-    }
 }

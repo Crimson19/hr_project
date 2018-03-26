@@ -10,7 +10,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-8">
-            <form action="/visitor/loginAsEmp.do" class="form-horizontal">
+            <form action="/empolyee/login.do" class="form-horizontal">
                 <div class="form-group">
                     <label class="control-label col-sm-2">用户名：</label>
                     <div class="col-sm-4">

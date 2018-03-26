@@ -51,7 +51,7 @@ public class RecruitController {
         return "recruit/showRecruit";
     }
 
-    @RequestMapping(value = "showRecruit/{recruitmentId}")
+    @RequestMapping(value = "showRecruit/{recruitId}")
     public String visitorViewRecWithRecId(Model model, @PathVariable(value = "recruitId") String recuitId){
         Recruit recruit = new Recruit();
         int recruitId = Integer.parseInt(recuitId);
